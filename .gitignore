@@ -1,0 +1,18 @@
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+
+# Build directory
+build/
+
+# VS Code settings
+.vscode/
+
+# Maven/Gradle directories
+target/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
