@@ -59,11 +59,3 @@
      ```
 
 ---
-
-## Additional Notes
-- **Tomcat Configuration**: Make sure Apache Tomcat is properly configured in Eclipse. You can add it by going to `Window` → `Preferences` → `Server` → `Runtime Environments`.
-- **Database Setup**: Ensure Oracle XE is running and database credentials match those in the project configuration files.
-- **JDK Version**: Use the recommended version of JDK compatible with your project and Eclipse IDE.
-- **Environment Variables**: Verify that the `JAVA_HOME` and database connection environment variables are correctly set.
-
----
