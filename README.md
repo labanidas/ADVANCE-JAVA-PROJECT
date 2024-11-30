@@ -1,6 +1,6 @@
 # Advance Java Project Setup
 
-This README file provides step-by-step instructions for setting up the Advance Java Project along with the necessary prerequisites.
+
 
 ---
 
@@ -18,23 +18,30 @@ This README file provides step-by-step instructions for setting up the Advance J
    - Download Oracle XE: [Oracle XE Downloads](https://www.oracle.com/in/database/technologies/xe-downloads.html)
    - Watch the installation tutorial for Oracle XE: [Oracle XE Installation Guide](https://youtu.be/uoxd5oloEQY?si=nvfIXU2nS8j_KBoW)
 
+4. **Java Development Kit (JDK)**
+   - Download and install the JDK: [JDK Downloads](https://www.oracle.com/in/java/technologies/downloads/)
+   - Follow this video tutorial to install and configure JDK: [JDK Installation Guide](https://youtu.be/R6MoDMASwag?si=yqememQe_6sT8dJK)
+
 ---
 
 ## Steps to Setup the Project
 
-### 1. Create a New Dynamic Web Development Project
+### 1. Install Prerequisites
+   - Make sure the JDK, Eclipse IDE, Apache Tomcat, and Oracle Database are installed and configured properly before proceeding.
+
+### 2. Create a New Dynamic Web Development Project
    - Open Eclipse IDE.
    - Go to `File` → `New` → `Dynamic Web Project`.
    - Name the project and complete the wizard.
 
-### 2. Initialize Git in the Project Folder
+### 3. Initialize Git in the Project Folder
    - Open the terminal inside the project folder. You can use the integrated terminal in Eclipse or any command-line tool.
    - Run the following commands:
      ```bash
      git init
      ```
 
-### 3. Connect to the Remote Repository
+### 4. Connect to the Remote Repository
    - Add the remote repository:
      ```bash
      git remote add origin https://github.com/labanidas/ADVANCE-JAVA-PROJECT.git
@@ -45,7 +52,7 @@ This README file provides step-by-step instructions for setting up the Advance J
      ```
      Replace `<your-name>` with your actual name.
 
-### 4. Pull the Latest Changes
+### 5. Pull the Latest Changes
    - Fetch the latest code from the master branch:
      ```bash
      git pull origin master
@@ -54,8 +61,9 @@ This README file provides step-by-step instructions for setting up the Advance J
 ---
 
 ## Additional Notes
-- Ensure that Tomcat is properly configured in Eclipse for the project to run smoothly.
-- Verify Oracle XE is up and running before testing database connections.
-- Use the `README` as a quick reference for setting up additional environments or troubleshooting issues.
+- **Tomcat Configuration**: Make sure Apache Tomcat is properly configured in Eclipse. You can add it by going to `Window` → `Preferences` → `Server` → `Runtime Environments`.
+- **Database Setup**: Ensure Oracle XE is running and database credentials match those in the project configuration files.
+- **JDK Version**: Use the recommended version of JDK compatible with your project and Eclipse IDE.
+- **Environment Variables**: Verify that the `JAVA_HOME` and database connection environment variables are correctly set.
 
 ---
