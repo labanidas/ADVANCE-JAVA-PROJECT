@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -22,3 +23,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+=======
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+
+# Build directory
+build/
+
+# VS Code settings
+.vscode/
+
+# Maven/Gradle directories
+target/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+>>>>>>> 271392b4b779e8fe044a88274d607721e1a49f10
