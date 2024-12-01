@@ -34,13 +34,15 @@ const Navbar = () => {
             <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/">Home</NavLink>
             <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/products">Products</NavLink>
             <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/contact">Contact Us</NavLink>
-            <button className='px-4 py-1 rounded-md bg-blue-500 text-white'>Sign in</button>
+            
+            <button className='px-4 py-1 rounded-md bg-blue-500 text-white'><NavLink to="/login">Sign In</NavLink></button>
+            
         </ul>
     </div>
-
     <button className='hidden md:block bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300'>
-        Sign in 
+    <NavLink to="/login">Sign In</NavLink>
     </button>
+   
 </nav>
   )
 }
