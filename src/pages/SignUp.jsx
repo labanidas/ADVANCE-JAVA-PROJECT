@@ -2,9 +2,28 @@ import React, { useState } from "react";
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    pincode: '',
+    city: '',
+    country: '',
+    mobile_no: '',
+    email: '',
+    userId: '',
+    password: '',
+  });
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -52,6 +71,8 @@ const SignUp = () => {
               type="text"
               id="name"
               name="name"
+              value={formData.name}
+              onChange={handleChange}
               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter your name"
               required
@@ -67,6 +88,8 @@ const SignUp = () => {
               type="text"
               id="address"
               name="address"
+              value={formData.address}
+              onChange={handleChange}
               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter your address"
               required
@@ -83,6 +106,8 @@ const SignUp = () => {
                 type="text"
                 id="pincode"
                 name="pincode"
+                value={formData.pincode}
+                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 placeholder="Enter pincode"
                 required
@@ -98,6 +123,8 @@ const SignUp = () => {
                 type="text"
                 id="city"
                 name="city"
+                value={formData.city}
+                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 placeholder="Enter city"
                 required
@@ -114,6 +141,8 @@ const SignUp = () => {
               type="text"
               id="country"
               name="country"
+              value={formData.country}
+              onChange={handleChange}
               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter country"
               required
@@ -129,7 +158,9 @@ const SignUp = () => {
               <input
                 type="tel"
                 id="mobile"
-                name="mobile"
+                name="mobile_no"
+                value={formData.mobile_no}
+                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 placeholder="Enter mobile"
                 required
@@ -145,6 +176,8 @@ const SignUp = () => {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 placeholder="Enter email"
                 required
@@ -161,6 +194,8 @@ const SignUp = () => {
               type="text"
               id="userId"
               name="userId"
+              value={formData.userId}
+              onChange={handleChange}
               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter user ID"
               required
@@ -176,6 +211,8 @@ const SignUp = () => {
               type={passwordVisible ? "text" : "password"}
               id="password"
               name="password"
+              value={formData.password}
+              onChange={handleChange}
               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter password"
               required
