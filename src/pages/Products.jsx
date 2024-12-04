@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const Products = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading products...</div>;
+    return <div className="w-[20vw]  mx-auto"><img className="h-[40vh]" src="/Spinner.svg" alt="" /></div>;
   }
 
   return (
