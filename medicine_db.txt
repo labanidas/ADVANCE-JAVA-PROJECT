@@ -1,25 +1,26 @@
 CREATE USER C##medicine IDENTIFIED BY 123;
 grant dba to C##medicine;
 
-create table users (
-	user_id varchar2(20) primary key,
-	password varchar2(20),
-	uname varchar2(30),
-	address varchar2(50),
-	city varchar2(10),
-	country varchar2(10),
-	mobile_no number(15),
-	email varchar2(20)
-);
-
+ create table users (
+       user_id varchar2(100) primary key,
+       password varchar2(100),
+       uname varchar2(50),
+       address varchar2(100),
+       pincode varchar2(10),
+       city varchar2(10),
+       country varchar2(10),
+       mobile_no number(15),
+      email varchar2(100)
+ );
 create table product (
-	product_id varchar2(20) primary key,
-	pname varchar2(20),
-	description varchar2(100),
-	qty number(20),
-	price number(20),
-	del_duration number(10)
-);
+       product_id varchar2(20) primary key,
+       pname varchar2(100),
+       description varchar2(200),
+       stock number(30),
+       price number(20),
+       del_duration number(10),
+       img_url varchar2(100)
+  );
 
 create table payment(
 	payment_id varchar2(20) primary key,
@@ -27,17 +28,18 @@ create table payment(
 	payment_status varchar2(10)
 );
 
-create table orders (
-	order_id varchar2(20) primary key,
-	user_id varchar2(20),
-	product_id varchar2(20),
-	payment_id varchar2(20),
-	order_date date,
-	order_status varchar2(20),
-	foreign key(user_id) references users(user_id),
-	foreign key(product_id) references product(product_id),
-	foreign key(payment_id) references payment(payment_id)
-);
+ create table orders (
+       order_id varchar2(20) primary key,
+       user_id varchar2(100),
+       product_id varchar2(20),
+       qty varchar2(20),
+       payment_id varchar2(20),
+       order_date date,
+       order_status varchar2(50),
+       foreign key(user_id) references users(user_id),
+      foreign key(product_id) references product(product_id),
+      foreign key(payment_id) references payment(payment_id)
+ );
 
 
 
