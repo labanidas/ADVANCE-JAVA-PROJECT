@@ -22,6 +22,29 @@ create table product (
        img_url varchar2(100)
   );
 
+insert into product values('p01','Paracetamol 500mg','Used to reduce fever and relieve mild to moderate pain.',100,21,2,'/paracetamol.jpg');
+
+insert into product values('p02','Cetirizine 10mg','Provides relief from allergies like sneezing, runny nose, and itching.',50,15,3,'/cetirizine.jpg');
+
+insert into product values('p03','Amoxicillin 250mg','Effective for treating bacterial infections.',30,50,2,'/amoxicillin250mg.jpg');
+
+insert into product values('p04','Ibuprofen 400mg','Relieves pain, inflammation, and fever.',0,19,4,'/ibuprofen.jpg');
+
+insert into product values('p05','Vitamin D3 1000IU','Supports bone health and immune function.',200,25,2,'/vitamind3.jpg');
+
+insert into product values('p06','Aspirin 75mg','Used as a blood thinner to prevent blood clots and reduce the risk of heart attacks.',120,15,3,'/aspirin.png');
+
+insert into product values('p07','Metformin 500mg','Helps control blood sugar levels in people with type 2 diabetes.',80,35,2,'/metformin.jpg');
+
+insert into product values('p08','Omeprazole 20mg','Reduces stomach acid to relieve heartburn and indigestion.',150,22,5,'/omeprazole.jpg');
+
+insert into product values('p09','Azithromycin 250mg','Used to treat bacterial infections like respiratory and skin infections.',40,60,2,'/azithromycin.jpeg');
+
+insert into product values('p10','Prospan Cough Syrup 100ml','Relieves cough and soothes throat irritation.',300,75,3,'/prospan.jpg');
+
+
+
+
 create table payment(
 	payment_id varchar2(20) primary key,
 	payment_mode varchar2(10),

@@ -20,7 +20,7 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Setting up CORS headers for frontend integration
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentType("application/json");
