@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate()
 
     // Toggle password visibility
     const togglePasswordVisibility = () => {
@@ -11,11 +13,12 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const email = e.target.email.value;
+        const userId = e.target.userId.value;
         const password = e.target.password.value;
 
         // Backend API URL (replace with your endpoint)
-        const apiUrl = "https://your-backend-url/api/signin";
+        const apiUrl = "http://localhost:9080/Medicine/LoginServlet";   
+        //const requestData = JSON.stringify(formData);
 
         try {
             const response = await fetch(apiUrl, {
@@ -23,12 +26,13 @@ const LoginPage = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ userId, password }),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 alert("Sign-in successful!"); // Handle successful response
+                navigate("/");
             } else {
                 alert("Sign-in failed. Please try again."); // Handle errors
             }
@@ -45,18 +49,18 @@ const LoginPage = () => {
             Join with Us
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email Input */}
+            {/* userId Input */}
             <div>
                 <label
-                    htmlFor="email"
+                    htmlFor="userId"
                     className="block text-gray-700 text-sm sm:text-base font-medium"
                 >
                     User Id
                 </label>
                 <input
                     type="text"
-                    id="email"
-                    name="email"
+                    id="userId"
+                    name="userId"
                     className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     placeholder="Enter your user id"
                     required
