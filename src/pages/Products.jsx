@@ -22,6 +22,12 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  const handleBuyNow = (productId) => {
+    // Navigate to the payment page with the productId
+    navigate("/payment", { state: { productId } });
+  };
+
+
   if (loading) {
     return <div className="w-[20vw]  mx-auto"><img className="h-[40vh]" src="/Spinner.svg" alt="" /></div>;
   }
@@ -60,6 +66,7 @@ const Products = () => {
                 item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
               } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
               disabled={item.stock === 0}
+              onClick={() => handleBuyNow(item.id)}
             >
               {item.stock > 0 ? "Buy Now" : "Out of Stock"}
             </button>
