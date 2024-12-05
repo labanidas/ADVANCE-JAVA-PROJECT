@@ -24,6 +24,7 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+<<<<<<< HEAD
   const handleSearch = () => {
     const lowercasedSearchTerm = searchTerm.toLowerCase();
     const filtered = products.filter((product) =>
@@ -32,17 +33,23 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
+=======
+>>>>>>> 5e530b5ffd673da45bf9faa1ca578b5ae63495a4
   const handleBuyNow = (productId) => {
     // Navigate to the payment page with the productId
     navigate("/payment", { state: { productId } });
   };
 
   if (loading) {
+<<<<<<< HEAD
     return (
       <div className="w-[20vw] mx-auto">
         <img className="h-[40vh]" src="/Spinner.svg" alt="" />
       </div>
     );
+=======
+    return <div className="w-[20vw]  mx-auto"><img className="h-[40vh]" src="/Spinner2.svg" alt="" /></div>;
+>>>>>>> 5e530b5ffd673da45bf9faa1ca578b5ae63495a4
   }
 
   return (
@@ -103,6 +110,28 @@ const Products = () => {
                 {item.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
             </div>
+<<<<<<< HEAD
+=======
+            <p className="text-gray-600 text-sm line-clamp-2">
+              {item.description}
+            </p>
+            <p
+              className={`text-sm ${
+                item.stock > 0 ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {item.stock > 0 ? "In Stock" : "Out of Stock"}
+            </p>
+            <button
+              className={`mt-2 ${
+                item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
+              } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
+              disabled={item.stock === 0}
+              onClick={() => handleBuyNow(item.id)}
+            >
+              {item.stock > 0 ? "Buy Now" : "Out of Stock"}
+            </button>
+>>>>>>> 5e530b5ffd673da45bf9faa1ca578b5ae63495a4
           </div>
         ))}
       </div>
