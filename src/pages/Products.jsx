@@ -44,8 +44,6 @@ const Products = () => {
         <img className="h-[40vh]" src="/Spinner.svg" alt="" />
       </div>
     );
-    return <div className="w-[20vw]  mx-auto"><img className="h-[40vh]" src="/Spinner2.svg" alt="" /></div>;
-
   }
 
   return (
