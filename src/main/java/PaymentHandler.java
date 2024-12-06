@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Base64;
@@ -26,6 +25,19 @@ public class PaymentHandler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Setting up CORS headers for frontend integration
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+        response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // If the request method is OPTIONS, return immediately
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
         String productId = request.getParameter("product_id"); // Get the product_id parameter from React
 
         Connection conn = null;
@@ -33,16 +45,13 @@ public class PaymentHandler extends HttpServlet {
         ResultSet rs = null;
 
         try {
-            // Database connection details
-            String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe"; // Replace with your DB URL
-            String dbUser = "system"; // Replace with your DB username
-            String dbPassword = "admin"; // Replace with your DB password
+            // Use dbconnection class to get a connection
+            conn = dbconnection.getConnection();
 
-            // Load JDBC driver
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-            // Connect to the database
-            conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            if (conn == null) {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database connection failed.");
+                return;
+            }
 
             // Fetch all attributes of the product from the database
             String query = "SELECT * FROM product WHERE product_id = ?";
@@ -113,6 +122,7 @@ public class PaymentHandler extends HttpServlet {
 
                     // Send the complete JSON response
                     response.setContentType("application/json");
+                    response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write(productJson.toString());
                 } else {
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create Razorpay order.");
