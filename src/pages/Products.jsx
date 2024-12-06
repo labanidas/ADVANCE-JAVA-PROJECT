@@ -12,7 +12,7 @@ const Products = () => {
     // Fetch data from the servlet
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:9080/Medicine/ProductServlet");
+        const response = await fetch("http://localhost:8082/Backend/ProductServlet");
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -34,10 +34,35 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
-  const handleBuyNow = (productId) => {
-    // Navigate to the payment page with the productId
-    navigate("/payment", { state: { productId } });
+  const handleBuyNow = async (product) => {
+    const apiUrl = `http://localhost:8082/Backend/PaymentHandler?product_id=${product.id}`;
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      // Check for HTTP errors
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
+      }
+  
+      const JSONresponse = await response.json();
+      console.log(product)
+      
+      // Navigate to the payment page with the Razorpay order details
+      navigate("/payment", { state: { product, paymentDetails: JSONresponse } });
+  
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
+  
 
   if (loading) {
 
@@ -92,18 +117,16 @@ const Products = () => {
                 {item.description}
               </p>
               <p
-                className={`text-sm ${
-                  item.stock > 0 ? "text-green-600" : "text-red-600"
-                }`}
+                className={`text-sm ${item.stock > 0 ? "text-green-600" : "text-red-600"
+                  }`}
               >
                 {item.stock > 0 ? "In Stock" : "Out of Stock"}
               </p>
               <button
-                className={`mt-2 ${
-                  item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
-                } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
+                className={`mt-2 ${item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
+                  } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
                 disabled={item.stock === 0}
-                onClick={() => handleBuyNow(item.id)}
+                onClick={() => handleBuyNow(item)}
               >
                 {item.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
@@ -112,18 +135,16 @@ const Products = () => {
               {item.description}
             </p>
             <p
-              className={`text-sm ${
-                item.stock > 0 ? "text-green-600" : "text-red-600"
-              }`}
+              className={`text-sm ${item.stock > 0 ? "text-green-600" : "text-red-600"
+                }`}
             >
               {item.stock > 0 ? "In Stock" : "Out of Stock"}
             </p>
             <button
-              className={`mt-2 ${
-                item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
-              } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
+              className={`mt-2 ${item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
+                } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
               disabled={item.stock === 0}
-              onClick={() => handleBuyNow(item.id)}
+              onClick={() => handleBuyNow(item)}
             >
               {item.stock > 0 ? "Buy Now" : "Out of Stock"}
             </button>
