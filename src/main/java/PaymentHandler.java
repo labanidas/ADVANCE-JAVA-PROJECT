@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
+
 
 @WebServlet("/PaymentHandler")
 public class PaymentHandler extends HttpServlet {
@@ -25,10 +25,11 @@ public class PaymentHandler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Setting up CORS headers for frontend integration
+    	// Setting up CORS headers for frontend integration
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-        response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -37,6 +38,7 @@ public class PaymentHandler extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             return;
         }
+
 
         String productId = request.getParameter("product_id"); // Get the product_id parameter from React
 
@@ -60,16 +62,6 @@ public class PaymentHandler extends HttpServlet {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                // Construct a JSON object with all attributes
-                JSONObject productJson = new JSONObject();
-                productJson.put("product_id", rs.getString("product_id"));
-                productJson.put("name", rs.getString("pname"));
-                productJson.put("description", rs.getString("description"));
-                productJson.put("stock", rs.getInt("stock"));
-                productJson.put("price", rs.getInt("price"));
-                productJson.put("delivery_duration", rs.getInt("del_duration"));
-                productJson.put("image_url", rs.getString("img_url"));
-
                 // Integrate with Razorpay API for payment creation
                 String apiUrl = "https://api.razorpay.com/v1/orders";
                 String apiKey = "rzp_test_hvkuFk2j7mbLvi"; // Replace with your Razorpay Key ID
@@ -112,18 +104,11 @@ public class PaymentHandler extends HttpServlet {
                         res.append(line);
                     }
                     reader.close();
-
-                    // Parse JSON response
-                    JSONObject razorpayResponse = new JSONObject(res.toString());
-                    String orderId = razorpayResponse.getString("id");
-
-                    // Add Razorpay Order ID to the response JSON
-                    productJson.put("razorpay_order_id", orderId);
-
+                    
+                    
                     // Send the complete JSON response
-                    response.setContentType("application/json");
                     response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write(productJson.toString());
+                    response.getWriter().write(res.toString());
                 } else {
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create Razorpay order.");
                 }
