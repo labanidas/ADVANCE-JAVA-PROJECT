@@ -1,9 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom'
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const { isLoggedIn, logout } = useAuth();
     return (
         <nav className='flex justify-between items-center sticky top-0 w-full shadow-md p-4 px-5 z-50 backdrop-blur'>
             <h1 className='text-2xl font-bold text-blue-600'>MedAccess</h1>
@@ -34,15 +35,24 @@ const Navbar = () => {
                     <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/">Home</NavLink>
                     <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/products">Products</NavLink>
                     <NavLink className={(e) => e.isActive ? "border-b-2 border-blue-600 text-blue-600 transition duration-300" : "text-gray-600"} to="/contact">Contact Us</NavLink>
-                    
+                    {isLoggedIn ? (
+                    <button className='px-4 py-1 rounded-md bg-blue-500 text-white' onClick={logout}><NavLink to="/login">Log out</NavLink></button>
+                    ):(
                     <button className='px-4 py-1 rounded-md bg-blue-500 text-white'><NavLink to="/login">Sign In</NavLink></button>
-
+                    )
+                }
                 </ul>
             </div>
-            <button className='hidden md:block bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300'>
-                <NavLink to="/login">Sign In</NavLink>
-            </button>
-
+            {isLoggedIn ? (
+                <button className='hidden md:block bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300' onClick={logout}>
+                    <NavLink to="/login">Log out</NavLink>
+                </button>
+            ) : (
+                <button className='hidden md:block bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300'>
+                    <NavLink to="/login">Sign in</NavLink>
+                </button>
+            )
+            }
         </nav>
     )
 }

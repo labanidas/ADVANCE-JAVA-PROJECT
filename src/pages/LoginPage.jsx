@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const navigate = useNavigate()
+    const { login } = useAuth();
+
+    const handleLogin = () => {
+        // Perform your authentication logic here
+        login(); // Update login state
+        navigate("/");
+      };
 
     // Toggle password visibility
     const togglePasswordVisibility = () => {
@@ -107,7 +115,7 @@ const LoginPage = () => {
             <button
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 text-sm sm:text-base rounded-lg hover:bg-blue-600 transition-colors"
-            >
+              onClick={handleLogin}>
                 Sign In
             </button>
         </form>

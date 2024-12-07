@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Products = () => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth(); // Access login state from AuthContext
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const BASE_URL = process.env.BASE_URL;
 
   useEffect(() => {
     // Fetch data from the servlet
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/ProductServlet`);
+        const response = await fetch(`http://localhost:8082/Backend/ProductServlet`);
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -36,15 +37,20 @@ const Products = () => {
   };
 
   const handleBuyNow = (product) => {
-    // Navigate to the payment page with the productId
+    // Check if the user is logged in
+    if (!isLoggedIn) {
+      // Redirect to login if not logged in
+      navigate("/login", { state: { redirectTo: "/products" } });
+      return;
+    }
+    // Proceed to the payment page if logged in
     navigate("/payment", { state: { product } });
   };
 
   if (loading) {
-
     return (
-      <div className="w-[20vw] mx-auto">
-        <img className="h-[40vh]" src="/Spinner.svg" alt="" />
+      <div className="w-[10vw] h-full mx-auto">
+        <img className="h-[20vh]" src="/Spinner.svg" alt="" />
       </div>
     );
   }
@@ -107,25 +113,6 @@ const Products = () => {
                 {item.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
             </div>
-            <p className="text-gray-600 text-sm line-clamp-2">
-              {item.description}
-            </p>
-            <p
-              className={`text-sm ${
-                item.stock > 0 ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {item.stock > 0 ? "In Stock" : "Out of Stock"}
-            </p>
-            <button
-              className={`mt-2 ${
-                item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
-              } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
-              disabled={item.stock === 0}
-              onClick={() => handleBuyNow(item)}
-            >
-              {item.stock > 0 ? "Buy Now" : "Out of Stock"}
-            </button>
           </div>
         ))}
       </div>
