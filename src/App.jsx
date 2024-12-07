@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import LoginPage from './pages/LoginPage';
 import SignUp from './pages/SignUp';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<SignUp/>}/>
+          <Route path="/payment" element={<Payment/>}/>
           
           {/* 404 page */}
           {/* <Route path="*" element={<NotFound />} /> */}

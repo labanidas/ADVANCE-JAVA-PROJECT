@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,7 +12,7 @@ const Products = () => {
     // Fetch data from the servlet
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:9080/Medicine/ProductServlet");
+        const response = await fetch("http://localhost:8082/Backend/ProductServlet");
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -32,9 +34,9 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
-  const handleBuyNow = (productId) => {
+  const handleBuyNow = (product) => {
     // Navigate to the payment page with the productId
-    navigate("/payment", { state: { productId } });
+    navigate("/payment", { state: { product } });
   };
 
   if (loading) {
@@ -99,7 +101,7 @@ const Products = () => {
                   item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
                 } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
                 disabled={item.stock === 0}
-                onClick={() => handleBuyNow(item.id)}
+                onClick={() => handleBuyNow(item)}
               >
                 {item.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
@@ -119,7 +121,7 @@ const Products = () => {
                 item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
               } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
               disabled={item.stock === 0}
-              onClick={() => handleBuyNow(item.id)}
+              onClick={() => handleBuyNow(item)}
             >
               {item.stock > 0 ? "Buy Now" : "Out of Stock"}
             </button>
