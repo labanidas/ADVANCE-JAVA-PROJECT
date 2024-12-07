@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const apiUrl = "http://localhost:9080/Medicine/SignupServlet";
+    const apiUrl = `${BASE_URL}/SignupServlet`;
 
     // Sending data as JSON (stringified formData)
     const requestData = JSON.stringify(formData);

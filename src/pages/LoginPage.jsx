@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
     const [passwordVisible, setPasswordVisible] = useState(false);
     const navigate = useNavigate()
     const { login } = useAuth();
@@ -25,7 +26,7 @@ const LoginPage = () => {
         const password = e.target.password.value;
 
         // Backend API URL (replace with your endpoint)
-        const apiUrl = "http://localhost:9080/Medicine/LoginServlet";   
+        const apiUrl = `${BASE_URL}/LoginServlet`;   
         //const requestData = JSON.stringify(formData);
 
         try {

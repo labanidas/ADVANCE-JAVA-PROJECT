@@ -6,11 +6,12 @@ const Payment = () => {
   const location = useLocation();
   const { product } = location.state;
   const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     // Fetch data from the servlet
     const fetchRazoroayOrder = async () => {
-      const apiUrl = `http://localhost:9080/Medicine/PaymentHandler?product_id=${product.id}`;
+      const apiUrl = `${BASE_URL}/PaymentHandler?product_id=${product.id}`;
 
       try {
       const response = await fetch(apiUrl, {
