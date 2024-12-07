@@ -7,12 +7,13 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const BASE_URL = process.env.BASE_URL;
 
   useEffect(() => {
     // Fetch data from the servlet
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8082/Backend/ProductServlet");
+        const response = await fetch(`${BASE_URL}/ProductServlet`);
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
