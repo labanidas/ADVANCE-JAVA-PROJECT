@@ -101,7 +101,7 @@ const Products = () => {
                   item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
                 } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
                 disabled={item.stock === 0}
-                onClick={() => handleBuyNow(item.id)}
+                onClick={() => handleBuyNow(item)}
               >
                 {item.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
@@ -121,7 +121,7 @@ const Products = () => {
                 item.stock > 0 ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400"
               } text-white font-medium py-2 px-4 rounded-md transition-colors duration-300`}
               disabled={item.stock === 0}
-              onClick={() => handleBuyNow(item)}
+              onClick={() => handleBuyNow(item.id)}
             >
               {item.stock > 0 ? "Buy Now" : "Out of Stock"}
             </button>
