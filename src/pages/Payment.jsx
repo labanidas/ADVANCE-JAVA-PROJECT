@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "https://checkout.razorpay.com/v1/checkout.js";
 
 const Payment = () => {
   const location = useLocation();
-  const { product, paymentDetails } = location.state ;
-  console.log(product);  // Log to check the full structure of the product object
+  const { product } = location.state;
+  const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
+
+  useEffect(() => {
+    // Fetch data from the servlet
+    const fetchRazoroayOrder = async () => {
+      const apiUrl = `http://localhost:9080/Medicine/PaymentHandler?product_id=${product.id}`;
+
+      try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+  
+      // Check for HTTP errors
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
+      }
+  
+      const JSONresponse = await response.json();
+      setRazorpayOrderDetails(JSONresponse);
+  
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+    };
+    fetchRazoroayOrder();
+  }, []);
 
 
   const handlepayment = (e) => {
@@ -13,12 +43,12 @@ const Payment = () => {
 
     var options = {
       key: "rzp_test_hvkuFk2j7mbLvi", 
-      amount: paymentDetails.amount, // Amount in paise
+      amount: razorpayOrderDetails.amount, // Amount in paise
       currency: "INR",
       name: "MedAccess",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: paymentDetails.id, // Pass the obtained Order ID
+      order_id: razorpayOrderDetails.id, // Pass the obtained Order ID
       callback_url: "/",
       prefill: {
         name: "XYZ",
@@ -54,7 +84,7 @@ const Payment = () => {
       
         <div>
           <p>Product Name: {product.name}</p>
-          <p>Amount: {paymentDetails.amount / 100} INR</p>
+          <p>Amount: {razorpayOrderDetails.amount / 100} INR</p>
         </div>
       
         <p>No product details available.</p>
