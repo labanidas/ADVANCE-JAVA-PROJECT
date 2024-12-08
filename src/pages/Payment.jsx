@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "https://checkout.razorpay.com/v1/checkout.js";
 
 const Payment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { product } = location.state;
   const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -50,7 +51,10 @@ const Payment = () => {
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: razorpayOrderDetails.id, // Pass the obtained Order ID
-      callback_url: "/",
+      handler: function (response){
+        // payment success 
+        alert("Thank You");
+      },
       prefill: {
         name: "XYZ",
         email: "XYZ@example.com",
@@ -65,18 +69,12 @@ const Payment = () => {
     };
 
     var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+      // payment failed
+      // navigate Proceed to the payment page 
+      navigate("/payment", { state: { product } });
+    });
     rzp1.open();
-  };
-
-  const buttonStyle = {
-    backgroundColor: "#3399cc",
-    color: "white",
-    padding: "10px 20px",
-    fontSize: "16px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "background-color 0.3s",
   };
 
   return (
@@ -91,7 +89,7 @@ const Payment = () => {
         <p>No product details available.</p>
       
 
-      <button style={buttonStyle} onClick={handlepayment}>
+      <button onClick={handlepayment} className="border border-blue-500">
         Pay with Razorpay
       </button>
     </div>
