@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "https://checkout.razorpay.com/v1/checkout.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Payment = () => {
   const location = useLocation();
@@ -33,7 +35,7 @@ const Payment = () => {
   
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred! Please try again");
     }
     };
     fetchRazoroayOrder();
@@ -53,7 +55,8 @@ const Payment = () => {
       order_id: razorpayOrderDetails.id, // Pass the obtained Order ID
       handler: function (response){
         // payment success 
-        alert("Thank You");
+        toast.success("Thank you so much!");;
+        navigate("/products");
       },
       prefill: {
         name: "XYZ",
@@ -78,21 +81,38 @@ const Payment = () => {
   };
 
   return (
-    <div>
-      <h1>Payment Page</h1>
-      
-        <div>
-          <p>Product Name: {product.name}</p>
-          <p>Amount: {razorpayOrderDetails.amount / 100} INR</p>
-        </div>
-      
-        <p>No product details available.</p>
-      
+    <div className="min-h-[70vh] bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center p-4">
+  <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6">
+    <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
+      Payment Page
+    </h1>
 
-      <button onClick={handlepayment} className="border border-blue-500">
-        Pay with Razorpay
-      </button>
-    </div>
+    {product && razorpayOrderDetails ? (
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+        <p className="text-lg font-medium text-gray-700">
+          <span className="font-semibold text-gray-900">Product Name:</span>{" "}
+          {product.name}
+        </p>
+        <p className="text-lg font-medium text-gray-700">
+          <span className="font-semibold text-gray-900">Amount:</span>{" "}
+          {razorpayOrderDetails.amount / 100} INR
+        </p>
+      </div>
+    ) : (
+      <p className="text-center text-gray-600 text-sm">
+        No product details available.
+      </p>
+    )}
+
+    <button
+      onClick={handlepayment}
+      className="w-full bg-blue-500 text-white py-3 text-lg font-medium rounded-lg hover:bg-blue-600 transition-colors"
+    >
+      Pay with Razorpay
+    </button>
+  </div>
+</div>
+
   );
 };
 

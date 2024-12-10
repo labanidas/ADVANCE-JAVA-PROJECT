@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -49,15 +51,15 @@ const SignUp = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert(data.message || "Sign-up successful!");
+        toast.success("Sign-up successful!");
         navigate("/login") // Redirect to login page
       } else {
         const errorData = await response.json();
-        alert(errorData.message || "Sign-up failed. Please try again.");
+        toast.error("Sign-in failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
