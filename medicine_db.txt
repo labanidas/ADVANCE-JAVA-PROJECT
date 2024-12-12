@@ -44,25 +44,35 @@ insert into product values('p10','Prospan Cough Syrup 100ml','Relieves cough and
 
 
 
-
-create table payment(
-	payment_id varchar2(20) primary key,
-	payment_mode varchar2(10),
-	payment_status varchar2(10)
-);
-
  create table orders (
-       order_id varchar2(20) primary key,
+       order_id varchar2(100) primary key,
        user_id varchar2(100),
        product_id varchar2(20),
        qty varchar2(20),
-       payment_id varchar2(20),
-       order_date date,
-       order_status varchar2(50),
+       payment_mode varchar2(30),
+       payment_status varchar2(20),
+       order_date date default sysdate,
+       del_date date,
        foreign key(user_id) references users(user_id),
-      foreign key(product_id) references product(product_id),
-      foreign key(payment_id) references payment(payment_id)
+       foreign key(product_id) references product(product_id)
  );
+
+CREATE SEQUENCE order_id_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE OR REPLACE TRIGGER orders_order_id_trg
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+    :NEW.order_id := 'ORD-' || TO_CHAR(order_id_seq.NEXTVAL, 'FM00000');
+END;
+/
+
+
+
+
 
 
 
