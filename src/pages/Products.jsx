@@ -29,6 +29,10 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  const userId = sessionStorage.getItem("user_id"); 
+  console.log("Retrieved user_id from sessionStorage:", userId);
+  sessionStorage.setItem("user_id", userId);
+
   const handleSearch = () => {
     const lowercasedSearchTerm = searchTerm.toLowerCase();
     const filtered = products.filter((product) =>
