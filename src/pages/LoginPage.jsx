@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +34,10 @@ const LoginPage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                toast.success("Sign-in successful!"); // Success toast
-                login(); // Update login state
+                toast.success("Sign-in successful!"); 
+                login(); 
+                sessionStorage.setItem("user_id", userId);
+                console.log("User ID saved to sessionStorage:", userId);
                 navigate("/");
             } else {
                 toast.error("Sign-in failed. Please check your credentials."); // Error toast
@@ -90,7 +93,7 @@ const LoginPage = () => {
                         <button
                             type="button"
                             onClick={togglePasswordVisibility}
-                            className="absolute top-[26px] md:top-8 right-3 text-gray-600 focus:outline-none"
+                            className="absolute top-8 right-3 text-gray-600 focus:outline-none"
                         >
                             {passwordVisible ? "Hide" : "Show"}
                         </button>
