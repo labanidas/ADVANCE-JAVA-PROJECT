@@ -22,15 +22,12 @@ public class OrderUpdate extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentType("application/json");
 
-        // Parameters received from frontend
-        HttpSession session = request.getSession(true);
-        String userId = (String) session.getAttribute("user_id");
-        //String userId = request.getParameter("user_id");
+        String userId = request.getParameter("user_id");
         String productId = request.getParameter("product_id");
         String paymentMode = request.getParameter("payment_mode");
         String paymentStatus = request.getParameter("payment_status");
@@ -40,6 +37,10 @@ public class OrderUpdate extends HttpServlet {
         ResultSet rs = null;
         
         System.out.println("user id:"+userId);
+        System.out.println("product id:"+productId);
+        System.out.println("paymentmode:"+paymentMode);
+        System.out.println("payment status:"+paymentStatus);
+        System.out.println("qty:"+qty);
 
         try {
             conn = dbconnection.getConnection();

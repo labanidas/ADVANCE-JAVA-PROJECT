@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentType("application/json");
@@ -58,16 +58,11 @@ public class LoginServlet extends HttpServlet {
                 pstmt.setString(1, userId);
                 pstmt.setString(2, password);
                 
-                HttpSession session = request.getSession(true);
-                
                 
                 ResultSet rs = pstmt.executeQuery();
                 JSONObject jsonResponse = new JSONObject();
                 if (rs.next()) {
-                	userId=rs.getString(1);
-                	session.setAttribute("user_id", userId);
                     response.setStatus(HttpServletResponse.SC_OK);
-                    System.out.println("user id = "+userId);
                     jsonResponse.put("status", "success").put("message", "Login successful!").put("userId", userId);
                     
                 } else {
