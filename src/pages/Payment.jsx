@@ -11,7 +11,7 @@ const Payment = () => {
   const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const userId = sessionStorage.getItem("user_id"); 
-  console.log("Retrieved user_id from sessionStorage:", userId);
+
 
   // Fetch Razorpay order details using product ID from backend
   useEffect(() => {
@@ -98,10 +98,9 @@ const Payment = () => {
   const updateOrderInDatabase = (paymentMode, paymentStatus, razorpayResponse) => {
 
     const apiUrl = `${BASE_URL}/OrderUpdate`;
-    console.log("Retrieved user_id from sessionStorage:", userId);
 
     const orderData = new URLSearchParams({
-      userId: userId,
+      user_id: userId,
       product_id: product.id, 
       qty: "1", 
       payment_mode: paymentMode, 
@@ -142,7 +141,7 @@ const Payment = () => {
         {product && razorpayOrderDetails ? (
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
             <p className="text-lg font-medium text-gray-700">
-              <span className="font-semibold text-gray-900">Product Name:</span> {product.name}
+              <span className="font-semibold text-gray-900">Product Name:</span> <img src={product.imageUrl} alt="" />
             </p>
             <p className="text-lg font-medium text-gray-700">
               <span className="font-semibold text-gray-900">Amount:</span> {razorpayOrderDetails.amount / 100} INR
