@@ -8,6 +8,7 @@ const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { product } = location.state;
+  const [loading, setLoading] = useState(true);
   const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const userId = sessionStorage.getItem("user_id"); 
@@ -33,9 +34,11 @@ const Payment = () => {
 
         const JSONresponse = await response.json();
         setRazorpayOrderDetails(JSONresponse);
+        setLoading(false);
       } catch (error) {
         console.error("Error:", error);
         toast.error("An error occurred! Please try again");
+        setLoading(false);
       }
     };
     fetchRazorpayOrder();
@@ -143,8 +146,8 @@ const Payment = () => {
             <p className="text-lg font-medium text-gray-700">
               <span className="font-semibold text-gray-900">Product Name:</span> {product.name}
             </p>
-            <p className="text-lg font-medium text-gray-700">
-              <span className="font-semibold text-gray-900">Amount:</span> {razorpayOrderDetails.amount / 100} INR
+            <p className="text-lg font-medium text-gray-700 flex items-center">
+              <span className="font-semibold text-gray-900">Amount:</span>{loading? <span><img className="h-[7vh]" src="/Spinner.svg" alt="loading..." /></span> : ` ${razorpayOrderDetails.amount / 100} INR` }
             </p>
           </div>
         ) : (
