@@ -11,6 +11,10 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+  const userId = sessionStorage.getItem("user_id"); 
+  console.log("Retrieved user_id from sessionStorage:", userId);
+  sessionStorage.setItem("user_id", userId);
+
   useEffect(() => {
     // Fetch data from the servlet
     const fetchProducts = async () => {
