@@ -17,10 +17,10 @@ const Hero = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition duration-300">
-                            Order Now
+                        <Link to="/products">Order Now</Link>
                         </button>
                         <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full hover:bg-blue-50 transition duration-300">
-                            <Link to="/products">View Products</Link>
+                            <Link to="/trackorder">Track Order</Link>
                         </button>
                     </div>
                 </div>
