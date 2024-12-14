@@ -141,7 +141,7 @@ const Payment = () => {
         {product && razorpayOrderDetails ? (
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
             <p className="text-lg font-medium text-gray-700">
-              <span className="font-semibold text-gray-900">Product Name:</span> <img src={product.imageUrl} alt="" />
+              <span className="font-semibold text-gray-900">Product Name:</span> {product.name}
             </p>
             <p className="text-lg font-medium text-gray-700">
               <span className="font-semibold text-gray-900">Amount:</span> {razorpayOrderDetails.amount / 100} INR
