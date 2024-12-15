@@ -12,6 +12,7 @@ const Payment = () => {
   const [razorpayOrderDetails, setRazorpayOrderDetails] = useState({});
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const userId = sessionStorage.getItem("user_id");
+  sessionStorage.setItem("user_id", userId);
 
   useEffect(() => {
     const fetchRazorpayOrder = async () => {
