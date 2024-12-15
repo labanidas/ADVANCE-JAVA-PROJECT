@@ -7,8 +7,8 @@ grant dba to C##medicine;
        uname varchar2(50),
        address varchar2(100),
        pincode varchar2(10),
-       city varchar2(10),
-       country varchar2(10),
+       city varchar2(50),
+       country varchar2(50),
        mobile_no number(15),
       email varchar2(100)
  );
@@ -41,6 +41,87 @@ insert into product values('p08','Omeprazole 20mg','Reduces stomach acid to reli
 insert into product values('p09','Azithromycin 250mg','Used to treat bacterial infections like respiratory and skin infections.',40,60,2,'/azithromycin.jpeg');
 
 insert into product values('p10','Prospan Cough Syrup 100ml','Relieves cough and soothes throat irritation.',300,75,3,'/prospan.jpg');
+
+INSERT INTO product VALUES ('p11', 'Montelukast 10mg', 'Prevents asthma attacks and relieves allergic rhinitis symptoms.', 100, 18, 3, '/montelukast.jpeg');
+
+INSERT INTO product VALUES ('p12', 'Losartan 50mg', 'Helps manage high blood pressure and reduce stroke risk.', 75, 12, 3, '/losartan.png');
+
+INSERT INTO product VALUES ('p13', 'Levothyroxine 50mcg', 'Treats hypothyroidism by supplementing thyroid hormone levels.', 150, 22, 3, '/levothyroxine.jpg');
+
+INSERT INTO product VALUES ('p14', 'Atorvastatin 20mg', 'Lowers cholesterol levels and reduces the risk of heart disease.', 180, 10, 3, '/atorvastatin.jpg');
+
+INSERT INTO product VALUES ('p15', 'Salbutamol Inhaler', 'Provides quick relief from asthma and breathing difficulties.', 50, 25, 5, '/salbutamol.jpg');
+
+INSERT INTO product VALUES ('p16', 'Folic Acid 5mg', 'Supports red blood cell formation and prevents anemia.', 250, 8, 2, '/folicacid.jpg');
+
+INSERT INTO product VALUES ('p17', 'Pantoprazole 40mg', 'Reduces stomach acid production and treats GERD.', 120, 19, 5, '/pantoprazole.jpg');
+
+INSERT INTO product VALUES ('p18', 'Ranitidine 150mg', 'Relieves heartburn and indigestion by reducing stomach acid.', 0, 20, 4, '/ranitidine.jpeg');
+
+INSERT INTO product VALUES ('p19', 'Clopidogrel 75mg', 'Prevents blood clots and reduces the risk of stroke or heart attack.', 80, 18, 3, '/clopidogrel.jpg');
+
+INSERT INTO product VALUES ('p20', 'Metoprolol 50mg', 'Manages high blood pressure and chest pain.', 100, 14, 3, '/metoprolol.jpg');
+
+INSERT INTO product VALUES ('p21', 'Prednisolone 5mg', 'Treats inflammation and autoimmune conditions.', 150, 30, 3, '/prednisolone.jpeg');
+
+INSERT INTO product VALUES ('p22', 'Doxycycline 100mg', 'Antibiotic effective against bacterial infections.', 70, 50, 2, '/doxycycline.jpg');
+
+INSERT INTO product VALUES ('p23', 'Loratadine 10mg', 'Relieves allergy symptoms such as sneezing and itching.', 90, 15, 3, '/loratadine.jpg');
+
+INSERT INTO product VALUES ('p24', 'Hydroxychloroquine 200mg', 'Used to treat autoimmune diseases like lupus and rheumatoid arthritis.', 40, 20, 3, '/hydroxychloroquine.jpeg');
+
+INSERT INTO product VALUES ('p25', 'Glimepiride 1mg', 'Helps manage blood sugar levels in type 2 diabetes.', 60, 25, 3, '/glimepiride.jpg');
+
+INSERT INTO product VALUES ('p26', 'Esomeprazole 40mg', 'Treats acid reflux and stomach ulcers.', 140, 20, 5, '/esomeprazole.jpg');
+
+INSERT INTO product VALUES ('p27', 'Ciprofloxacin 500mg', 'Antibiotic used for bacterial infections.', 80, 40, 2, '/ciprofloxacin.jpg');
+
+INSERT INTO product VALUES ('p28', 'Budesonide Nasal Spray', 'Relieves nasal congestion and allergic rhinitis.', 60, 30, 4, '/budesonide.jpg');
+
+INSERT INTO product VALUES ('p29', 'Melatonin 3mg', 'Helps regulate sleep cycles and improve sleep quality.', 200, 25, 2, '/melatonin.jpg');
+
+INSERT INTO product VALUES ('p30', 'Tranexamic Acid 500mg', 'Prevents excessive bleeding during menstruation or surgery.', 50, 18, 3, '/tranexamicacid.jpg');
+
+INSERT INTO product VALUES ('p31', 'Pan 40', 'Reduces stomach acid and treats GERD.', 120, 15, 5, '/pan40.jpg');
+
+INSERT INTO product VALUES ('p32', 'Pan D', 'Combination of Pantoprazole and Domperidone, used to treat acid reflux and nausea.', 150, 20, 5, '/pand.jpg');
+
+INSERT INTO product VALUES ('p33', 'Vizylac Capsule', 'Probiotic supplement to improve gut health.', 80, 18, 3, '/vizylac.jpg');
+
+INSERT INTO product VALUES ('p34', 'Gelusil Syrup', 'Provides quick relief from acidity and gas.', 200, 10, 5, '/gelusil.jpg');
+
+INSERT INTO product VALUES ('p35', 'Carmozym', 'A digestive enzyme supplement to aid digestion.', 100, 12, 4, '/carmozym.jpg');
+
+INSERT INTO product VALUES ('p36', 'Omnigel', 'Topical pain relief gel for joint and muscle pain.', 150, 20, 5, '/omnigel.jpg');
+
+INSERT INTO product VALUES ('p37', 'volini spray', 'Topical pain relief spray for joint and muscle pain.', 90, 25, 3, '/volini.jpg');
+
+INSERT INTO product VALUES ('p38', 'Nioclean AD Gel', 'Topical gel used for treating acne and skin infections.', 70, 15, 4, '/niocleanad.jpg');
+
+INSERT INTO product VALUES ('p39', 'Rantac 150mg', 'Relieves heartburn and reduces stomach acid.', 120, 20, 3, '/rantac.jpg');
+
+INSERT INTO product VALUES ('p40', 'Zincovit Tablet', 'Multivitamin and multimineral supplement to boost immunity.', 200, 25, 2, '/zincovit.jpg');
+
+INSERT INTO product VALUES ('p41', 'Rabeprazole 20mg', 'Treats acid reflux and stomach ulcers.', 150, 18, 5, '/rabeprazole.png');
+
+INSERT INTO product VALUES ('p42', 'Cyclopam Tablet', 'Provides relief from abdominal pain and cramps.', 80, 22, 3, '/cyclopam.jpg');
+
+INSERT INTO product VALUES ('p43', 'Digene Tablet', 'Antacid for acidity, gas, and indigestion.', 250, 10, 4, '/digene.jpg');
+
+INSERT INTO product VALUES ('p44', 'Shelcal 500', 'Calcium supplement to support bone health.', 300, 15, 2, '/shelcal.jpg');
+
+INSERT INTO product VALUES ('p45', 'Alday Tablet', 'Relieves symptoms of seasonal allergies such as sneezing, runny nose, and itchy eyes.', 100, 40, 3, '/alday.jpg');
+
+INSERT INTO product VALUES ('p46', 'Normaxin Tablet', 'Relieves irritable bowel syndrome and abdominal discomfort.', 60, 18, 4, '/normaxin.jpg');
+
+INSERT INTO product VALUES ('p47', 'ORS Powder', 'Rehydrates the body and replenishes electrolytes.', 200, 8, 5, '/ors.jpg');
+
+INSERT INTO product VALUES ('p48', 'Evion 400', 'Vitamin E supplement for skin and hair health.', 100, 20, 2, '/evion400.jpg');
+
+INSERT INTO product VALUES ('p49', 'Livogen-Z', 'Iron and zinc supplement to combat anemia.', 150, 12, 3, '/livogenz.jpg');
+
+INSERT INTO product VALUES ('p50', 'Neurobion Forte', 'Vitamin B-complex supplement for nerve health.', 180, 15, 4, '/neurobion.jpg');
+
 
 
 

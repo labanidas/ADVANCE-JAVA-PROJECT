@@ -25,15 +25,13 @@ public class PaymentHandler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// Setting up CORS headers for frontend integration
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // If the request method is OPTIONS, return immediately
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
             return;
@@ -47,7 +45,6 @@ public class PaymentHandler extends HttpServlet {
         ResultSet rs = null;
 
         try {
-            // Use dbconnection class to get a connection
             conn = dbconnection.getConnection();
 
             if (conn == null) {
@@ -64,8 +61,8 @@ public class PaymentHandler extends HttpServlet {
             if (rs.next()) {
                 // Integrate with Razorpay API for payment creation
                 String apiUrl = "https://api.razorpay.com/v1/orders";
-                String apiKey = "rzp_test_hvkuFk2j7mbLvi"; // Replace with your Razorpay Key ID
-                String apiSecret = "jwrY3vYBxPaMC1nWLp7jVu8R"; // Replace with your Razorpay Key Secret
+                String apiKey = "rzp_test_hvkuFk2j7mbLvi"; 
+                String apiSecret = "jwrY3vYBxPaMC1nWLp7jVu8R"; 
 
                 // Basic Auth Header
                 String auth = apiKey + ":" + apiSecret;
@@ -81,7 +78,7 @@ public class PaymentHandler extends HttpServlet {
                 connection.setRequestProperty("Authorization", authHeader);
 
                 // JSON Body for Razorpay Order
-                int priceInPaisa = rs.getInt("price") * 100; // Convert price to paisa
+                int priceInPaisa = rs.getInt("price") * 100; 
                 String jsonBody = "{"
                         + "\"amount\": " + priceInPaisa + ","
                         + "\"currency\": \"INR\","
@@ -94,7 +91,6 @@ public class PaymentHandler extends HttpServlet {
                 outputStream.flush();
                 outputStream.close();
 
-                // Check response from Razorpay
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -106,7 +102,6 @@ public class PaymentHandler extends HttpServlet {
                     reader.close();
                     
                     
-                    // Send the complete JSON response
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write(res.toString());
                 } else {

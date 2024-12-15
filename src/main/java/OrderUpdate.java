@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 
@@ -22,7 +21,7 @@ public class OrderUpdate extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentType("application/json");
@@ -49,7 +48,6 @@ public class OrderUpdate extends HttpServlet {
                 return;
             }
 
-            // Get delivery duration from product table
             String productQuery = "SELECT del_duration FROM product WHERE product_id = ?";
             ps = conn.prepareStatement(productQuery);
             ps.setString(1, productId);
@@ -63,19 +61,10 @@ public class OrderUpdate extends HttpServlet {
             rs.close();
             ps.close();
 
-            // Calculate order_date and del_date
-//            Date orderDate = new Date();
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            String orderDateStr = dateFormat.format(orderDate);
-//
-//            Date delDate = new Date(orderDate.getTime() + (long) delDuration * 24 * 60 * 60 * 1000);
-//            String delDateStr = dateFormat.format(delDate);
             
             LocalDateTime orderDate = LocalDateTime.now();
             LocalDateTime deliveryDate = orderDate.plus(delDuration, ChronoUnit.DAYS);
 
-
-            // Insert data into 'orders' table
             String insertQuery = "INSERT INTO orders (user_id, product_id, qty, payment_mode, payment_status, order_date, del_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(insertQuery);
             ps.setString(1, userId);
