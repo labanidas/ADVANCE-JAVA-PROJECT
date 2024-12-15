@@ -44,16 +44,16 @@ const Contact = () => {
               <h3 className="text-lg font-medium text-gray-900">Our Office</h3>
               <p className="mt-2 text-gray-600">
                 123 Business Street<br />
-                City, State 12345<br />
-                Country
+                City, Kolkata 700006<br />
+                India
               </p>
             </div>
 
             <div>
               <h3 className="text-lg font-medium text-gray-900">Contact Info</h3>
               <p className="mt-2 text-gray-600">
-                Email: info@company.com<br />
-                Phone: (123) 456-7890
+                Email: info@medaccess.com<br />
+                Phone: (+91) 9123678291
               </p>
             </div>
 

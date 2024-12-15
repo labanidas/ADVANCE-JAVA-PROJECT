@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Products = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth(); // Access login state from AuthContext
+  const { isLoggedIn } = useAuth(); 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
