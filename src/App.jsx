@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import LoginPage from './pages/LoginPage';
 import SignUp from './pages/SignUp';
 import Payment from './pages/Payment';
+import OrderTracking from './pages/OrderTracking';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<SignUp/>}/>
           <Route path="/payment" element={<Payment/>}/>
+          <Route path="/trackorder" element={<OrderTracking/>}/>
           
           {/* 404 page */}
           {/* <Route path="*" element={<NotFound />} /> */}
