@@ -16,37 +16,40 @@ const LoginPage = () => {
         setPasswordVisible((prevState) => !prevState);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const userId = e.target.userId.value;
-        const password = e.target.password.value;
+    // Login.jsx
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userId = e.target.userId.value;
+    const password = e.target.password.value;
 
-        const apiUrl = `${BASE_URL}/LoginServlet`;
+    const apiUrl = `${BASE_URL}/LoginServlet`;
 
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userId, password }),
-            });
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId, password }),
+        });
 
-            if (response.ok) {
-                const data = await response.json();
-                toast.success("Sign-in successful!"); 
-                login(); 
-                sessionStorage.setItem("user_id", userId);
-                console.log("User ID saved to sessionStorage:", userId);
-                navigate("/");
-            } else {
-                toast.error("Sign-in failed. Please check your credentials."); // Error toast
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            toast.error("An error occurred. Please try again later."); // Error toast
+        if (response.ok) {
+            const data = await response.json();
+            toast.success("Sign-in successful!");
+            login();
+            // Save user_id to sessionStorage to persist login state
+            sessionStorage.setItem("user_id", userId);
+            console.log("User ID saved to sessionStorage:", userId);
+            navigate("/");
+        } else {
+            toast.error("Sign-in failed. Please check your credentials.");
         }
-    };
+    } catch (error) {
+        console.error("Error:", error);
+        toast.error("An error occurred. Please try again later.");
+    }
+};
+
 
     return (
         <div className="bg-gradient-to-r from-blue-100 to-blue-200 min-h-[70vh] flex items-center justify-center p-4">
