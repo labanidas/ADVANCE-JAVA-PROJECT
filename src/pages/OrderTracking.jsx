@@ -1,6 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-=========
-
 import React, { useState, useEffect } from "react";
 const OrderTracking = () => {
   const [orders, setOrders] = useState([]);
