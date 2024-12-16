@@ -22,7 +22,7 @@ const Contact = () => {
           console.log('SUCCESS!');
           setSuccess(true);
           setIsLoading(false);
-          form.current.reset(); // Reset the form after successful submission
+          form.current.reset(); 
         },
         (error) => {
           console.log('FAILED...', error.text);
