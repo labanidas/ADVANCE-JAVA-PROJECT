@@ -87,7 +87,7 @@ const Products = () => {
             className="rounded-lg flex flex-col gap-3 shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white overflow-hidden"
           >
             <img
-              className="h-48 w-full object-cover hover:scale-105 transition-transform duration-300"
+              className="h-48 w-full object-contain hover:scale-105 transition-transform duration-300"
               src={item.imageUrl}
               alt={item.name}
             />
