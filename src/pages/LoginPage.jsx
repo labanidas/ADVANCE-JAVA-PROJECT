@@ -99,7 +99,7 @@ const LoginPage = () => {
                         <button
                             type="button"
                             onClick={togglePasswordVisibility}
-                            className="absolute top-8 right-3 text-gray-600 focus:outline-none"
+                            className="absolute top-[26px] sm:top-8 right-3 text-gray-600 focus:outline-none"
                         >
                             {passwordVisible ? "Hide" : "Show"}
                         </button>
