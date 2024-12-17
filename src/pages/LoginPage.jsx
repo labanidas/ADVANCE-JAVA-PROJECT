@@ -16,39 +16,42 @@ const LoginPage = () => {
         setPasswordVisible((prevState) => !prevState);
     };
 
-    // Login.jsx
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userId = e.target.userId.value;
-    const password = e.target.password.value;
+    const [loading, setLoading] = useState(false);
 
-    const apiUrl = `${BASE_URL}/LoginServlet`;
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ userId, password }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            toast.success("Sign-in successful!");
-            login();
-            // Save user_id to sessionStorage to persist login state
-            sessionStorage.setItem("user_id", userId);
-            console.log("User ID saved to sessionStorage:", userId);
-            navigate("/");
-        } else {
-            toast.error("Sign-in failed. Please check your credentials.");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true); 
+        const userId = e.target.userId.value;
+        const password = e.target.password.value;
+    
+        const apiUrl = `${BASE_URL}/LoginServlet`;
+    
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userId, password }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                toast.success("Sign-in successful!");
+                login();
+                sessionStorage.setItem("user_id", userId);
+                navigate("/");
+            } else {
+                toast.error("Sign-in failed. Please check your credentials.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false); 
         }
-    } catch (error) {
-        console.error("Error:", error);
-        toast.error("An error occurred. Please try again later.");
-    }
-};
+    };
+    
 
 
     return (
@@ -104,11 +107,14 @@ const handleSubmit = async (e) => {
 
                     {/* Submit Button */}
                     <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white py-2 text-sm sm:text-base rounded-lg hover:bg-blue-600 transition-colors"
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full py-2 text-sm sm:text-base rounded-lg transition-colors ${
+                        loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+                    }`}
                     >
-                        Sign In
-                    </button>
+    {loading ? "Signing In..." : "Sign In"}
+</button>
                 </form>
 
                 {/* Additional Links */}

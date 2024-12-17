@@ -31,37 +31,39 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const [loading, setLoading] = useState(false);
+
+const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
 
     const apiUrl = `${BASE_URL}/SignupServlet`;
 
-    // Sending data as JSON (stringified formData)
-    const requestData = JSON.stringify(formData);
-    console.log("Sending JSON data:", requestData);
-
     try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Ensure content type is application/json
-        },
-        body: requestData, // Sending JSON body
-      });
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        toast.success("Sign-up successful!");
-        navigate("/login") // Redirect to login page
-      } else {
-        const errorData = await response.json();
-        toast.error("Sign-in failed. Please check your credentials.");
-      }
+        if (response.ok) {
+            const data = await response.json();
+            toast.success("Sign-up successful!");
+            navigate("/login");
+        } else {
+            const errorData = await response.json();
+            toast.error("Sign-up failed. Please check your inputs.");
+        }
     } catch (error) {
-      console.error("Error:", error);
-      toast.error("An error occurred. Please try again later.");
+        console.error("Error:", error);
+        toast.error("An error occurred. Please try again later.");
+    } finally {
+        setLoading(false); 
     }
-  };
+};
+
 
   return (
     <div className="bg-gradient-to-r from-blue-100 to-blue-200 min-h-screen flex items-center justify-center p-4">
@@ -138,13 +140,16 @@ const SignUp = () => {
             </button>
           </div>
 
-          {/* Submit Button */}
           <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 text-sm sm:text-base rounded-lg hover:bg-blue-600 transition-colors"
+          type="submit"
+          disabled={loading}
+          className={`w-full py-2 text-sm sm:text-base rounded-lg transition-colors ${
+            loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+            }`}
           >
-            Sign Up
+          {loading ? "Signing Up..." : "Sign Up"}
           </button>
+
         </form>
       </div>
     </div>

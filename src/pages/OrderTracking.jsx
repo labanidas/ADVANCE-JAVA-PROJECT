@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 const OrderTracking = () => {
   const [orders, setOrders] = useState([]);
   const [expandedOrders, setExpandedOrders] = useState({});
@@ -9,7 +10,7 @@ const OrderTracking = () => {
   const formatDate = (date) => {
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0"); 
+    const month = String(d.getMonth() + 1).padStart(2, "0");
     const year = d.getFullYear();
     return `${day}/${month}/${year}`;
   };
@@ -87,17 +88,17 @@ const OrderTracking = () => {
                       <span className="font-bold">Quantity:</span> {order.quantity}
                     </p>
                     <p className="text-lg font-medium text-gray-800">
-                       <span className="font-bold">Delivery Status:</span>{" "}
-                        <span
+                      <span className="font-bold">Delivery Status:</span>{" "}
+                      <span
                         className={`${
                           isDelivered(order.delivery_date) ? "text-green-600" : "text-gray-800"
                         }`}
-                         >
+                      >
                         {isDelivered(order.delivery_date)
                           ? `Delivered on ${formatDate(order.delivery_date)}`
                           : `Arriving on ${formatDate(order.delivery_date)}`}
-                          </span>
-                      </p>
+                      </span>
+                    </p>
                     <button
                       onClick={() => toggleOrderDetails(order.order_id)}
                       className="mt-2 text-blue-500 underline text-sm"
@@ -133,12 +134,12 @@ const OrderTracking = () => {
                           <p className="text-lg font-medium text-gray-800">
                             <span className="font-bold">Payment Status:</span>{" "}
                             {isDelivered(order.delivery_date)
-                          ? `Success`
-                          : order.payment_status}
+                              ? `Success`
+                              : order.payment_status}
                           </p>
                           <p className="text-lg font-medium text-gray-800">
-                            <span className="font-bold">Price:</span> ₹
-                            {order.product.price}
+                            <span className="font-bold">Total Price:</span> ₹
+                            {order.total_price} {/* Updated to display total_price */}
                           </p>
                         </div>
                       </div>
