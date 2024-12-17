@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 // Profile icon path
-const profileIcon = "/profileIcon.jpeg";
+const profileIcon = "/profile.png";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -127,14 +127,17 @@ const Navbar = () => {
                     {isLoggedIn && (
                         <NavLink
                             to="/profile"
-                            className="flex items-center gap-2 hover:cursor-pointer hover:text-blue-600 transition duration-300"
+                            className="hover:cursor-pointer hover:text-blue-600 transition duration-300"
                         >
-                            <span className="text-base text-gray-600">Hi, {userId.charAt(0).toUpperCase() + userId.slice(1)}</span>
+                            <span className="text-base flex items-center gap-2 text-white font-semibold bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-1 rounded-full shadow-lg">
+                                Hi, {userId.charAt(0).toUpperCase() + userId.slice(1)}
+                            
                             <img
                                 src={profileIcon}
                                 alt="Profile"
                                 className="w-8 h-8 rounded-full"
                             />
+                            </span>
                         </NavLink>
                     )}
 
@@ -160,14 +163,17 @@ const Navbar = () => {
                 {isLoggedIn && (
                     <NavLink
                         to="/profile"
-                        className="flex items-center gap-2 hover:cursor-pointer hover:text-blue-600 transition duration-300"
+                        className="hover:cursor-pointer hover:text-blue-600 transition duration-300"
                     >
-                        <span className="text-xl text-gray-600">Hi, { userId.charAt(0).toUpperCase() + userId.slice(1)}</span>
+                        <span className="text-lg flex items-center gap-2 text-white font-semibold bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-[6px] rounded-full shadow-lg">
+                            Hi, {userId.charAt(0).toUpperCase() + userId.slice(1)}
+                        
                         <img
                             src={profileIcon}
                             alt="Profile"
-                            className="w-8 h-8 rounded-full"
+                            className="w-7 h-7 rounded-full"
                         />
+                        </span>
                     </NavLink>
                 )}
 
