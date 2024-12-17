@@ -19,6 +19,7 @@ const Payment = () => {
     const fetchRazorpayOrder = async () => {
       const totalPrice = product.price * quantity; // Calculate total price
       const apiUrl = `${BASE_URL}/PaymentHandler?product_id=${product.id}&total_price=${totalPrice}`;
+      console.log(product.stock)
   
       try {
         const response = await fetch(apiUrl, {
@@ -48,6 +49,7 @@ const Payment = () => {
 
   const handleQuantityChange = (operation) => {
     setQuantity((prevQuantity) => (operation === "increment" ? prevQuantity + 1 : Math.max(1, prevQuantity - 1)));
+    console.log()
   };
 
   const handlePayment = (e) => {
@@ -156,7 +158,7 @@ const Payment = () => {
                   </button>
                 <span className="px-3 border-t border-b">{quantity}</span>
                 <button
-                  onClick={() => handleQuantityChange("increment")}
+                  onClick={() => quantity < 20 && handleQuantityChange("increment")} disabled={quantity >= 20 || quantity >= product.stock }
                   className="bg-gray-300 px-3 py-1 rounded-r-lg hover:bg-gray-400"
                   >
                   +

@@ -49,7 +49,7 @@ const Products = () => {
       return;
     }
     // Proceed to the payment page if logged in
-    navigate("/payment", { state: { product } });
+    navigate("/payment", { state: { product }});
   };
 
   if (loading) {
