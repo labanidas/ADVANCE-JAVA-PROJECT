@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class OrderUpdate extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -30,16 +31,12 @@ public class OrderUpdate extends HttpServlet {
         String productId = request.getParameter("product_id");
         String paymentMode = request.getParameter("payment_mode");
         String paymentStatus = request.getParameter("payment_status");
-        String qty = request.getParameter("qty");
+        int qty = Integer.parseInt(request.getParameter("qty"));
+        int totalPrice = Integer.parseInt(request.getParameter("total_price"));
+
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
-        System.out.println("user id:"+userId);
-        System.out.println("product id:"+productId);
-        System.out.println("paymentmode:"+paymentMode);
-        System.out.println("payment status:"+paymentStatus);
-        System.out.println("qty:"+qty);
 
         try {
             conn = dbconnection.getConnection();
@@ -56,24 +53,23 @@ public class OrderUpdate extends HttpServlet {
             int delDuration = 0;
             if (rs.next()) {
                 delDuration = rs.getInt("del_duration");
-                System.out.println("delivery duration: "+delDuration);
             }
             rs.close();
             ps.close();
 
-            
             LocalDateTime orderDate = LocalDateTime.now();
             LocalDateTime deliveryDate = orderDate.plus(delDuration, ChronoUnit.DAYS);
 
-            String insertQuery = "INSERT INTO orders (user_id, product_id, qty, payment_mode, payment_status, order_date, del_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO orders (user_id, product_id, qty, total_price, payment_mode, payment_status, order_date, del_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(insertQuery);
             ps.setString(1, userId);
             ps.setString(2, productId);
-            ps.setString(3, qty);
-            ps.setString(4, paymentMode);
-            ps.setString(5, paymentStatus);
-            ps.setTimestamp(6, Timestamp.valueOf(orderDate));
-            ps.setTimestamp(7, Timestamp.valueOf(deliveryDate));
+            ps.setInt(3, qty);
+            ps.setInt(4, totalPrice);
+            ps.setString(5, paymentMode);
+            ps.setString(6, paymentStatus);
+            ps.setTimestamp(7, Timestamp.valueOf(orderDate));
+            ps.setTimestamp(8, Timestamp.valueOf(deliveryDate));
 
             int result = ps.executeUpdate();
             if (result > 0) {
@@ -96,4 +92,5 @@ public class OrderUpdate extends HttpServlet {
             }
         }
     }
+
 }

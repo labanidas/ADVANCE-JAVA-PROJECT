@@ -19,9 +19,9 @@ public class OrderTracker extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-    	response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    	response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setContentType("application/json");
         
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
@@ -40,8 +40,9 @@ public class OrderTracker extends HttpServlet {
 
         String query = """
             SELECT o.ORDER_ID, o.ORDER_DATE, o.DEL_DATE, o.QTY, o.PAYMENT_MODE, o.PAYMENT_STATUS,
-                   p.PNAME, p.DESCRIPTION, p.PRICE, p.IMG_URL,
-                   u.UNAME, u.ADDRESS, u.CITY, u.COUNTRY, u.PINCODE, u.MOBILE_NO, u.EMAIL
+                   p.PNAME, p.DESCRIPTION, p.IMG_URL,
+                   u.UNAME, u.ADDRESS, u.CITY, u.COUNTRY, u.PINCODE, u.MOBILE_NO, u.EMAIL,
+                   o.TOTAL_PRICE
             FROM orders o
             JOIN product p ON o.PRODUCT_ID = p.PRODUCT_ID
             JOIN users u ON o.USER_ID = u.USER_ID
@@ -63,11 +64,11 @@ public class OrderTracker extends HttpServlet {
                 order.put("quantity", rs.getInt("QTY"));
                 order.put("payment_mode", rs.getString("PAYMENT_MODE"));
                 order.put("payment_status", rs.getString("PAYMENT_STATUS"));
+                order.put("total_price", rs.getDouble("TOTAL_PRICE"));  
 
                 JSONObject product = new JSONObject();
                 product.put("product_name", rs.getString("PNAME"));
                 product.put("description", rs.getString("DESCRIPTION"));
-                product.put("price", rs.getDouble("PRICE"));
                 product.put("image_url", rs.getString("IMG_URL"));
 
                 JSONObject user = new JSONObject();
@@ -85,9 +86,7 @@ public class OrderTracker extends HttpServlet {
                 orders.put(order);
             }
 
-            //response.getWriter().write(orders.toString());
             response.getWriter().write(new JSONObject().put("orders", orders).toString());
-
 
         } catch (SQLException e) {
             e.printStackTrace();

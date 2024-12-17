@@ -37,8 +37,15 @@ public class PaymentHandler extends HttpServlet {
             return;
         }
 
+        String productId = request.getParameter("product_id");
+        String totalPrice = request.getParameter("total_price"); 
+        System.out.println("Product id : "+productId);
+        System.out.println("Total Price : "+totalPrice);
 
-        String productId = request.getParameter("product_id"); // Get the product_id parameter from React
+        if (productId == null || totalPrice == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters.");
+            return;
+        }
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -52,7 +59,6 @@ public class PaymentHandler extends HttpServlet {
                 return;
             }
 
-            // Fetch all attributes of the product from the database
             String query = "SELECT * FROM product WHERE product_id = ?";
             ps = conn.prepareStatement(query);
             ps.setString(1, productId);
@@ -77,8 +83,10 @@ public class PaymentHandler extends HttpServlet {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Authorization", authHeader);
 
+                // Use the total price sent from React
+                int priceInPaisa = Integer.parseInt(totalPrice) * 100; // Convert to paisa
+
                 // JSON Body for Razorpay Order
-                int priceInPaisa = rs.getInt("price") * 100; 
                 String jsonBody = "{"
                         + "\"amount\": " + priceInPaisa + ","
                         + "\"currency\": \"INR\","
@@ -100,8 +108,7 @@ public class PaymentHandler extends HttpServlet {
                         res.append(line);
                     }
                     reader.close();
-                    
-                    
+
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write(res.toString());
                 } else {
@@ -125,4 +132,5 @@ public class PaymentHandler extends HttpServlet {
             }
         }
     }
+
 }
