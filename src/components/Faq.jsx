@@ -18,7 +18,7 @@ const Faq = () => {
     },
     {
       "question": "How can I track my order?",
-      "answer": "You can track your order using the tracking link sent to your email after the order is shipped."
+      "answer": "You can track your order using the 'Track Orders' option in our home page."
     }
     ,
   ];
