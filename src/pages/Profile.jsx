@@ -39,53 +39,80 @@ const Profile = () => {
 
     if (loading) {
         return (
-            <div className="w-[10vw] h-full mx-auto">
-                <img className="h-[20vh]" src="/Spinner.svg" alt="" />
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
             </div>
         );
     }
 
     if (error) {
-        return <div className="text-center text-lg text-red-500">{error}</div>;
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="p-4 rounded-md bg-red-50 border border-red-200">
+                    <p className="text-red-600 font-medium">{error}</p>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex flex-col items-center p-4">
-            <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+        <div className="min-h-screen bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
                 {userData ? (
-                    <>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6">
-                            My Profile
-                        </h1>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Name:</span> {userData.uname}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Email:</span> {userData.email}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Mobile:</span> {userData.mobile_no}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Address:</span> {userData.address}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Pincode:</span> {userData.pincode}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">City:</span> {userData.city}
-                                </p>
-                                <p className="text-lg font-medium text-gray-800">
-                                    <span className="font-bold">Country:</span> {userData.country}
-                                </p>
-                            </div>
-
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
+                            <h1 className="text-3xl font-bold text-white text-center">
+                                My Profile
+                            </h1>
                         </div>
-                    </>
+                        
+                        <div className="p-6 space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-4">
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">Name</p>
+                                        <p className="text-gray-900 font-semibold">{userData.uname}</p>
+                                    </div>
+                                    
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">Email</p>
+                                        <p className="text-gray-900 font-semibold">{userData.email}</p>
+                                    </div>
+                                    
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">Mobile</p>
+                                        <p className="text-gray-900 font-semibold">{userData.mobile_no}</p>
+                                    </div>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">Address</p>
+                                        <p className="text-gray-900 font-semibold">{userData.address}</p>
+                                    </div>
+                                    
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">City & Pincode</p>
+                                        <p className="text-gray-900 font-semibold">
+                                            {userData.city} - {userData.pincode}
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <p className="text-gray-600 text-sm font-medium">Country</p>
+                                        <p className="text-gray-900 font-semibold">{userData.country}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 ) : (
-                    <p>Loading...</p>
+                    <div className="text-center">
+                        <div className="animate-pulse">
+                            <div className="h-8 bg-gray-200 rounded w-1/3 mx-auto mb-4"></div>
+                            <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
