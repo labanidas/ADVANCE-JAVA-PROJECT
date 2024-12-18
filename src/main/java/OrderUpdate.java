@@ -49,14 +49,24 @@ public class OrderUpdate extends HttpServlet {
             ps = conn.prepareStatement(productQuery);
             ps.setString(1, productId);
             rs = ps.executeQuery();
-
             int delDuration = 0;
             if (rs.next()) {
                 delDuration = rs.getInt("del_duration");
             }
             rs.close();
             ps.close();
-
+            
+            ps = conn.prepareStatement("UPDATE product SET stock = stock - ? WHERE product_id = ?");
+            ps.setInt(1, qty); 
+            ps.setString(2, productId); 
+            int res = ps.executeUpdate();
+            if (res>0) {
+                System.out.println("Stock updated");
+            }else {
+            	System.out.println("Stock not updated");
+            }
+            ps.close();
+            
             LocalDateTime orderDate = LocalDateTime.now();
             LocalDateTime deliveryDate = orderDate.plus(delDuration, ChronoUnit.DAYS);
 
