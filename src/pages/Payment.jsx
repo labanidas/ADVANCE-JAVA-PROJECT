@@ -55,7 +55,7 @@ const Payment = () => {
   const handlePayment = (e) => {
     e.preventDefault();
   
-    const totalAmount = razorpayOrderDetails.amount * quantity; // Updated to include quantity
+    const totalAmount = razorpayOrderDetails.amount * quantity; 
   
     var options = {
       key: "rzp_test_hvkuFk2j7mbLvi",
@@ -63,7 +63,7 @@ const Payment = () => {
       currency: "INR",
       name: "MedAccess",
       description: "Test Transaction",
-      image: "https://example.com/your_logo",
+      image: "/pharmacy.png",
       order_id: razorpayOrderDetails.id,
       handler: function (response) {
         toast.success("Order Placed!");
@@ -98,7 +98,7 @@ const Payment = () => {
   };
 
   const updateOrderInDatabase = (paymentMode, paymentStatus) => {
-    const totalPrice = product.price * quantity; // Calculate total price
+    const totalPrice = product.price * quantity; 
     const apiUrl = `${BASE_URL}/OrderUpdate`;
   
     const orderData = new URLSearchParams({
@@ -176,18 +176,20 @@ const Payment = () => {
 
               <button
                 onClick={handlePayment}
-                className="w-full bg-blue-500 text-white py-3 text-lg font-medium rounded-lg hover:bg-blue-600 transition-colors mb-4"
+                className={`w-full bg-blue-500 text-white py-3 text-lg font-medium rounded-lg hover:bg-blue-600 transition-colors mb-4 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                 disabled={loading}
               >
-                Pay Now
+                {loading ? "Processing" : "Pay Now"}
               </button>
-              <div className="text-center text-gray-600 text-sm mb-4">or</div>
+                <div className="text-center text-gray-600 text-sm mb-4">or</div>
               <button
                 onClick={handlePayOnDelivery}
-                className="w-full bg-green-500 text-white py-3 text-lg font-medium rounded-lg hover:bg-green-600 transition-colors"
+                className={`w-full bg-green-500 text-white py-3 text-lg font-medium rounded-lg hover:bg-green-600 transition-colors ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                disabled={loading}
               >
-                Pay on Delivery
+                {loading ? "Processing" : "Pay on Delivery"}
               </button>
+
             </div>
           </>
         ) : (
